@@ -7,10 +7,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.UUID;
 
+import br.dev.edvan.gerenciador_tarefas.dao.FuncionarioDAO;
 import br.dev.edvan.gerenciador_tarefas.model.Funcionario;
 import br.dev.edvan.gerenciador_tarefas.model.Status;
 import br.dev.edvan.gerenciador_tarefas.model.Tarefa;
+import br.dev.edvan.gerenciador_tarefas.utils.Utils;
 
 
 public class Main {
@@ -19,15 +22,26 @@ public class Main {
 //		testarLeituraEscritaArquivo();
 		
 		Funcionario funcionario = new Funcionario("Juninho");
-		Tarefa tarefa = new Tarefa(funcionario);
-		tarefa.setNome("Lavar a louça");
-		tarefa.setDescricao("Lavar a louça antes de eu chegar");
-		tarefa.setDataInicio(LocalDate.of(2025, 5, 21));
-		tarefa.setPrazo(1);
-		tarefa.setStatus(Status.EM_ANDAMENTO);
-
+		funcionario.setSetor("Tecnologia da Informação");
+		funcionario.setSalario(6942.00);
+		
+		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
+		dao.gravar();
+		
+//		Tarefa tarefa = new Tarefa(funcionario);
+//		tarefa.setNome("Lavar a louça");
+//		tarefa.setDescricao("Lavar a louça antes de eu chegar");
+//		tarefa.setDataInicio(LocalDate.of(2025, 5, 21));
+//		tarefa.setPrazo(1);
+//		tarefa.setStatus(Status.EM_ANDAMENTO);
+//
+//
+//		System.out.println(Utils.gerarUUID8());
+//		System.out.println(funcionario);
 
 	}
+	
+	//codigo de introducao a um filewriter, vou manter aqui para referencia
 
 	private static void testarLeituraEscritaArquivo() {
 		String so = System.getProperty("os.name");
