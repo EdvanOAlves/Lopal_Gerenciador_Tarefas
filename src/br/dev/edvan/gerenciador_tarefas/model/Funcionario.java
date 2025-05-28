@@ -9,6 +9,11 @@ public class Funcionario {
 		setNome(nome);
 		
 	}
+	public Funcionario(String nome, String cargo) {
+		setNome(nome);
+		setCargo(cargo);
+		
+	}
 
 	public String getNome() {
 		return nome;

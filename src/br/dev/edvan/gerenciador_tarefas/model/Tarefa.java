@@ -80,5 +80,9 @@ public class Tarefa {
 		else if (hoje.isAfter(dataPrevistaEntrega));
 		return status;
 	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import br.dev.edvan.gerenciador_tarefas.model.Funcionario;
+import br.dev.edvan.gerenciador_tarefas.model.Status;
 import br.dev.edvan.gerenciador_tarefas.model.Tarefa;
 
 
@@ -23,11 +24,8 @@ public class Main {
 		tarefa.setDescricao("Lavar a louça antes de eu chegar");
 		tarefa.setDataInicio(LocalDate.of(2025, 5, 21));
 		tarefa.setPrazo(1);
-		
-		
+		tarefa.setStatus(Status.EM_ANDAMENTO);
 
-
-		
 
 	}
 
