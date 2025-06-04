@@ -13,20 +13,30 @@ import br.dev.edvan.gerenciador_tarefas.dao.FuncionarioDAO;
 import br.dev.edvan.gerenciador_tarefas.model.Funcionario;
 import br.dev.edvan.gerenciador_tarefas.model.Status;
 import br.dev.edvan.gerenciador_tarefas.model.Tarefa;
+import br.dev.edvan.gerenciador_tarefas.ui.FuncionarioFrame;
+import br.dev.edvan.gerenciador_tarefas.ui.FuncionarioListaFrame;
 import br.dev.edvan.gerenciador_tarefas.utils.Utils;
 
 
 public class Main {
 	public static void main(String[] args) {
+
+
+		FuncionarioDAO dao = new FuncionarioDAO(null);
+		dao.getFuncionarios();
+		
+		
+		new FuncionarioListaFrame();		
+//		new FuncionarioFrame();
 		
 //		testarLeituraEscritaArquivo();
 		
-		Funcionario funcionario = new Funcionario("Juninho");
-		funcionario.setSetor("Tecnologia da Informação");
-		funcionario.setSalario(6942.00);
-		
-		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
-		dao.gravar();
+//		Funcionario funcionario = new Funcionario("Juninho");
+//		funcionario.setSetor("Tecnologia da Informação");
+//		funcionario.setSalario(6942.00);
+//		
+//		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
+//		dao.gravar();
 		
 //		Tarefa tarefa = new Tarefa(funcionario);
 //		tarefa.setNome("Lavar a louça");
