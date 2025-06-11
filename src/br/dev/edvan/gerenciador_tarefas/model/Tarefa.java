@@ -2,7 +2,10 @@ package br.dev.edvan.gerenciador_tarefas.model;
 
 import java.time.LocalDate;
 
+import br.dev.edvan.gerenciador_tarefas.utils.Utils;
+
 public class Tarefa {
+	private String id;
 	private String nome;
 	private String descricao;
 	private Funcionario responsavel;
@@ -13,10 +16,20 @@ public class Tarefa {
 
 	public Tarefa(Funcionario funcionario) {
 		// TODO Auto-generated constructor stub
+		setId(Utils.gerarUUID8());
 		setResponsavel(funcionario);
 	}
 
 	// Gets e Sets
+
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}

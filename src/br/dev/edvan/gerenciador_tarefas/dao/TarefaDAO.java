@@ -46,7 +46,7 @@ public class TarefaDAO {
 					tarefa.setId(tarefaVetor[0]);
 					tarefa.setNome(tarefaVetor[1]);
 //					tarefa.setResponsavel(tarefaVetor[2]); //TODO: precisa buscar o funcionário pela matricula
-					tarefa.setDataInicio(null);
+//					tarefa.setDataInicio(null); //TODO: Lidar com o LocalDate e a conversão dele
 					tarefa.setPrazo(0);
 				}
 			}
