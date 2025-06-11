@@ -27,7 +27,9 @@ public class FuncionarioListaFrame {
 	private DefaultTableModel model; // dados da tabela
 	private JTable tabelaFuncionarios; // tabela visualmente
 	private JScrollPane scrollFuncionarios; // Container da tabela
-
+	
+	
+	
 	String[] colunas = { "CÓDIGO", "NOME FUNCIONÁRIO", "CARGO" };
 
 	public FuncionarioListaFrame(JFrame parentFrame) {
@@ -35,6 +37,7 @@ public class FuncionarioListaFrame {
 	}
 
 	private void criarTela(JFrame parentFrame) {
+		//Configuracao inicial da tela
 		JDialog telaFuncionarioLista = new JDialog(parentFrame, "Lista de funcionários");
 		telaFuncionarioLista.setSize(700, 500);
 		telaFuncionarioLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -44,13 +47,14 @@ public class FuncionarioListaFrame {
 
 		Container painel = telaFuncionarioLista.getContentPane();
 
+		//elementos da tela
 		labelTitulo = new JLabel("Cadastro de Funcionários");
 		labelTitulo.setBounds(10, 10, 500, 40);
 		labelTitulo.setFont(new Font("Arial", Font.BOLD, 32));
 		labelTitulo.setForeground(Color.RED);
 		
 
-		// Criando tabela
+			// Criando tabela
 		model = new DefaultTableModel(colunas, 100);
 		tabelaFuncionarios = new JTable(model);
 		scrollFuncionarios = new JScrollPane(tabelaFuncionarios);
@@ -83,6 +87,7 @@ public class FuncionarioListaFrame {
 	private void carregarDadosTabela() {
 		List<Funcionario> funcionarios = new ArrayList<>();
 		
+		//Acessando os dados e montando uma lista
 		FuncionarioDAO dao = new FuncionarioDAO(null);
 		funcionarios = dao.getFuncionarios();
 		
@@ -95,6 +100,7 @@ public class FuncionarioListaFrame {
 			dados[i][2] = f.getCargo();
 			i++;
 		}
+		//Atualizando tabela com a nossa lista
 		model.setDataVector(dados, colunas);
 	}
 

@@ -38,6 +38,7 @@ public class FuncionarioFrame {
 	
 	
 	private void criarTela(JDialog parentFrame) {
+		//Configuracao inicial da janela
 		JDialog telaFuncionario = new JDialog(parentFrame, "Cadastrar novo funcionario", true);
 		
 		telaFuncionario.setSize(500, 500);
@@ -48,6 +49,7 @@ public class FuncionarioFrame {
 		
 		Container painel= telaFuncionario.getContentPane();
 		
+		//Elementos da tela e posicionamento
 		labelMatricula = new JLabel("Matrícula: ");
 		labelMatricula.setBounds(10, 20, 150, 30);		
 		txtMatricula = new JTextField();
@@ -96,10 +98,13 @@ public class FuncionarioFrame {
 		painel.add(btnSalvar);
 		painel.add(btnSair);
 		
+		//funcionalidade do botão de Salvar
+		
 		btnSalvar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//Montando um modelo de funcionario
 				Funcionario f = new Funcionario(txtNome.getText());
 				f.setMatricula(txtMatricula.getText());
 				f.setCargo(txtCargo.getText());
@@ -107,9 +112,12 @@ public class FuncionarioFrame {
 				double salario = Double.parseDouble(txtSalario.getText());
 				f.setSalario(salario);
 				
+				//Fazendo Funcionario salvar
 				FuncionarioDAO dao = new FuncionarioDAO(f);
 				boolean success = dao.gravar();
 				
+				
+				//Feedback para o usario
 				if (success) {
 					JOptionPane.showMessageDialog(telaFuncionario, "Funcionário cadastrado com sucesso!");
 					limparFormulario();
@@ -120,6 +128,7 @@ public class FuncionarioFrame {
 			}
 		});
 		
+		//confirmacao e funcionalidade do botão sair
 		btnSair.addActionListener(new ActionListener() {
 			
 			@Override
