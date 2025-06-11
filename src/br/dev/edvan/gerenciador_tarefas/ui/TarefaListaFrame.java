@@ -45,7 +45,10 @@ public class TarefaListaFrame {
 		labelTitulo.setFont(new Font("Arial", Font.BOLD, 32));
 		labelTitulo.setForeground(Color.RED);
 		
-		//Criando Tabela 
+		scrollTarefas = new JScrollPane();
+		scrollTarefas.setBounds(10, 70, 680, 300);
+		
+		//Criando Tabela TODO: adaptar esse trecho de código usando o de funcionario como base
 //		model = new DefaultTableModel(colunas, 100);
 //		tabelaFuncionarios = new JTable(model);
 //		scrollFuncionarios = new JScrollPane(tabelaFuncionarios);
@@ -72,7 +75,23 @@ public class TarefaListaFrame {
 		});
 		
 	}
-	private void carregarDadosTabela() {
+	private void carregarDadosTabela() { //TODO: Adaptar esse metodo usando o de funcionario como base
+//		List<Funcionario> funcionarios = new ArrayList<>();
+//		
+//		FuncionarioDAO dao = new FuncionarioDAO(null);
+//		funcionarios = dao.getFuncionarios();
+//		
+//		Object[][] dados = new Object[funcionarios.size()][3];
+//		
+//		int i = 0;
+//		for(Funcionario f : funcionarios) {
+//			dados[i][0] = f.getMatricula()/*.toUpperCase()*/;
+//			dados[i][1] = f.getNome();
+//			dados[i][2] = f.getCargo();
+//			i++;
+//		}
+//		model.setDataVector(dados, colunas);
+//	}
 		
 	}
 }
