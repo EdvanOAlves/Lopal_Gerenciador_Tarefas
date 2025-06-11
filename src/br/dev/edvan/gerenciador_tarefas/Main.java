@@ -15,6 +15,7 @@ import br.dev.edvan.gerenciador_tarefas.model.Status;
 import br.dev.edvan.gerenciador_tarefas.model.Tarefa;
 import br.dev.edvan.gerenciador_tarefas.ui.FuncionarioFrame;
 import br.dev.edvan.gerenciador_tarefas.ui.FuncionarioListaFrame;
+import br.dev.edvan.gerenciador_tarefas.ui.StarterFrame;
 import br.dev.edvan.gerenciador_tarefas.utils.Utils;
 
 
@@ -22,11 +23,14 @@ public class Main {
 	public static void main(String[] args) {
 
 
-		FuncionarioDAO dao = new FuncionarioDAO(null);
-		dao.getFuncionarios();
+		new StarterFrame();
 		
-		
-		new FuncionarioListaFrame();		
+//		FuncionarioDAO dao = new FuncionarioDAO(null);
+//		dao.getFuncionarios();
+//		
+//		
+//		new FuncionarioListaFrame();		
+
 //		new FuncionarioFrame();
 		
 //		testarLeituraEscritaArquivo();
