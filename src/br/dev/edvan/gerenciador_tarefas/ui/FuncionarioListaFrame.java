@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -29,14 +30,14 @@ public class FuncionarioListaFrame {
 
 	String[] colunas = { "CÓDIGO", "NOME FUNCIONÁRIO", "CARGO" };
 
-	public FuncionarioListaFrame() {
-		criarTela();
+	public FuncionarioListaFrame(JFrame parentFrame) {
+		criarTela(parentFrame);
 	}
 
-	private void criarTela() {
-		JFrame telaFuncionarioLista = new JFrame("Lista de funcionários");
+	private void criarTela(JFrame parentFrame) {
+		JDialog telaFuncionarioLista = new JDialog(parentFrame, "Lista de funcionários");
 		telaFuncionarioLista.setSize(700, 500);
-		telaFuncionarioLista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		telaFuncionarioLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		telaFuncionarioLista.setLayout(null);
 		telaFuncionarioLista.setLocationRelativeTo(null);
 		telaFuncionarioLista.setResizable(false);

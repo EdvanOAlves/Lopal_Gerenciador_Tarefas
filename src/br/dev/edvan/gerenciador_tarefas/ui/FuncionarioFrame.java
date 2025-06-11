@@ -32,12 +32,12 @@ public class FuncionarioFrame {
 	private JButton btnSalvar;
 	private JButton btnSair;
 	
-	public FuncionarioFrame(JFrame parentFrame) {
+	public FuncionarioFrame(JDialog parentFrame) {
 		criarTela(parentFrame);
 	}
 	
 	
-	private void criarTela(JFrame parentFrame) {
+	private void criarTela(JDialog parentFrame) {
 		JDialog telaFuncionario = new JDialog(parentFrame, "Cadastrar novo funcionario", true);
 		
 		telaFuncionario.setSize(500, 500);
