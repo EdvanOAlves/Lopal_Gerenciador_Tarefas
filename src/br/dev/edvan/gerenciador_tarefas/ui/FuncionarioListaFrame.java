@@ -3,6 +3,8 @@ package br.dev.edvan.gerenciador_tarefas.ui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ import br.dev.edvan.gerenciador_tarefas.model.Funcionario;
 public class FuncionarioListaFrame {
 
 	private JLabel labelTitulo;
-	private JButton btnNovo;
+	private JButton btnNovoFuncionario;
 
 	private DefaultTableModel model; // dados da tabela
 	private JTable tabelaFuncionarios; // tabela visualmente
@@ -45,6 +47,7 @@ public class FuncionarioListaFrame {
 		labelTitulo.setBounds(10, 10, 500, 40);
 		labelTitulo.setFont(new Font("Arial", Font.BOLD, 32));
 		labelTitulo.setForeground(Color.RED);
+		
 
 		// Criando tabela
 		model = new DefaultTableModel(colunas, 100);
@@ -53,10 +56,26 @@ public class FuncionarioListaFrame {
 		scrollFuncionarios.setBounds(10, 70, 680, 300);
 		carregarDadosTabela();
 
+		
+		btnNovoFuncionario = new JButton("Cadastrar novo funcionário");
+		btnNovoFuncionario.setBounds(440, 380, 250, 50);
+
+		
 		painel.add(scrollFuncionarios);
 		painel.add(labelTitulo);
+		painel.add(btnNovoFuncionario);
 
 		telaFuncionarioLista.setVisible(true);
+		
+		btnNovoFuncionario.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new FuncionarioFrame(telaFuncionarioLista);
+				carregarDadosTabela();
+				
+			}
+		});
 
 	}
 
@@ -65,7 +84,6 @@ public class FuncionarioListaFrame {
 		
 		FuncionarioDAO dao = new FuncionarioDAO(null);
 		funcionarios = dao.getFuncionarios();
-		
 		
 		Object[][] dados = new Object[funcionarios.size()][3];
 		
