@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import br.dev.edvan.gerenciador_tarefas.dao.FuncionarioDAO;
 import br.dev.edvan.gerenciador_tarefas.model.Funcionario;
 
 public class FuncionarioListaFrame {
@@ -60,15 +61,17 @@ public class FuncionarioListaFrame {
 	}
 
 	private void carregarDadosTabela() {
-		
 		List<Funcionario> funcionarios = new ArrayList<>();
 		
-		int i = 0;
+		FuncionarioDAO dao = new FuncionarioDAO(null);
+		funcionarios = dao.getFuncionarios();
+		
 		
 		Object[][] dados = new Object[funcionarios.size()][3];
 		
+		int i = 0;
 		for(Funcionario f : funcionarios) {
-			dados[i][0] = f.getMatricula();
+			dados[i][0] = f.getMatricula()/*.toUpperCase()*/;
 			dados[i][1] = f.getNome();
 			dados[i][2] = f.getCargo();
 			i++;
