@@ -24,34 +24,6 @@ public class Main {
 
 
 		new StarterFrame();
-		
-//		FuncionarioDAO dao = new FuncionarioDAO(null);
-//		dao.getFuncionarios();
-//		
-//		
-//		new FuncionarioListaFrame();		
-
-//		new FuncionarioFrame();
-		
-//		testarLeituraEscritaArquivo();
-		
-//		Funcionario funcionario = new Funcionario("Juninho");
-//		funcionario.setSetor("Tecnologia da Informação");
-//		funcionario.setSalario(6942.00);
-//		
-//		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
-//		dao.gravar();
-		
-//		Tarefa tarefa = new Tarefa(funcionario);
-//		tarefa.setNome("Lavar a louça");
-//		tarefa.setDescricao("Lavar a louça antes de eu chegar");
-//		tarefa.setDataInicio(LocalDate.of(2025, 5, 21));
-//		tarefa.setPrazo(1);
-//		tarefa.setStatus(Status.EM_ANDAMENTO);
-//
-//
-//		System.out.println(Utils.gerarUUID8());
-//		System.out.println(funcionario);
 
 	}
 	

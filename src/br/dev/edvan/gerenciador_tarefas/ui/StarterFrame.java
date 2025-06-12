@@ -19,7 +19,7 @@ public class StarterFrame {
 	private void criarTela() {
 		JFrame telaMainFrame = new JFrame("Gerenciador de tarefas");
 		
-		telaMainFrame.setSize(300, 100);
+		telaMainFrame.setSize(300, 120);
 		telaMainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		telaMainFrame.setLayout(null);
 		telaMainFrame.setLocationRelativeTo(null);
