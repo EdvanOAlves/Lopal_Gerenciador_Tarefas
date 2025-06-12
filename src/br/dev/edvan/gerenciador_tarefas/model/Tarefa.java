@@ -58,8 +58,10 @@ public class Tarefa {
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDate dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setDataInicio(String dataText) { //TODO: Fazer a devida conversão do String recebido para
+		String[] splitData= dataText.split("/");
+		LocalDate data = LocalDate.of(Integer.parseInt(splitData[0]),Integer.parseInt(splitData[1]), Integer.parseInt(splitData[3]));
+		this.dataInicio = data;
 	}
 
 	public int getPrazo() {
