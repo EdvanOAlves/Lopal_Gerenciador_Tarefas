@@ -85,8 +85,8 @@ public class FuncionarioFrame {
 		btnSair = new JButton("Sair");
 		btnSair.setBounds(220, 380, 120, 40);
 		
-		painel.add(txtMatricula);		
 		painel.add(labelMatricula);
+		painel.add(txtMatricula);		
 		painel.add(labelNome);		
 		painel.add(txtNome);
 		painel.add(labelCargo);

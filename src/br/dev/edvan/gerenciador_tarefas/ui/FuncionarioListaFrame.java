@@ -58,12 +58,12 @@ public class FuncionarioListaFrame {
 		model = new DefaultTableModel(colunas, 100);
 		tabelaFuncionarios = new JTable(model);
 		scrollFuncionarios = new JScrollPane(tabelaFuncionarios);
-		scrollFuncionarios.setBounds(10, 70, 680, 300);
+		scrollFuncionarios.setBounds(10, 70, 665, 300);
 		carregarDadosTabela();
 
 		
 		btnNovoFuncionario = new JButton("Cadastrar novo funcionário");
-		btnNovoFuncionario.setBounds(440, 380, 250, 50);
+		btnNovoFuncionario.setBounds(440, 380, 235, 50);
 
 		
 		painel.add(scrollFuncionarios);

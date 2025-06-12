@@ -46,7 +46,7 @@ public class TarefaListaFrame {
 		labelTitulo.setForeground(Color.RED);
 		
 		scrollTarefas = new JScrollPane();
-		scrollTarefas.setBounds(10, 70, 680, 300);
+		scrollTarefas.setBounds(10, 70, 665, 300);
 		
 		//Criando Tabela TODO: adaptar esse trecho de código usando o de funcionario como base
 //		model = new DefaultTableModel(colunas, 100);
@@ -56,7 +56,7 @@ public class TarefaListaFrame {
 //		carregarDadosTabela();
 		
 		btnNovaTarefa = new JButton("Registrar nova tarefa");
-		btnNovaTarefa.setBounds(440, 380, 250, 50);
+		btnNovaTarefa.setBounds(440, 380, 235, 50);
 		
 		painel.add(scrollTarefas);
 		painel.add(labelTitulo);
@@ -70,7 +70,6 @@ public class TarefaListaFrame {
 				// TODO Auto-generated method stub
 				new TarefaFrame(telaTarefaLista);
 				carregarDadosTabela();
-				
 			}
 		});
 		
