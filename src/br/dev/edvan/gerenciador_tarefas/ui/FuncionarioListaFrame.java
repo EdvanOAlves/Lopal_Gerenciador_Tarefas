@@ -103,5 +103,5 @@ public class FuncionarioListaFrame {
 		//Atualizando tabela com a nossa lista
 		model.setDataVector(dados, colunas);
 	}
-
+	
 }

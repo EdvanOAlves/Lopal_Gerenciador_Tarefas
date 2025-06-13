@@ -29,6 +29,7 @@ public class TarefaListaFrame {
 	}
 	
 	private void criarTela(JFrame parentFrame) {
+		//TODO: A propria tabela que vai servir de lista
 		//Configuração inicial da janela
 		JDialog telaTarefaLista = new JDialog(parentFrame, "Lista de tarefas");
 		telaTarefaLista.setSize(700, 500);

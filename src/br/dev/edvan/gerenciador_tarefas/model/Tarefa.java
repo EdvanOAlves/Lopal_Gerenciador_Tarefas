@@ -60,7 +60,10 @@ public class Tarefa {
 
 	public void setDataInicio(String dataText) { //TODO: Fazer a devida conversão do String recebido para
 		String[] splitData= dataText.split("/");
-		LocalDate data = LocalDate.of(Integer.parseInt(splitData[0]),Integer.parseInt(splitData[1]), Integer.parseInt(splitData[3]));
+		int dataAno = Integer.parseInt(splitData[2]);
+		int dataMes = Integer.parseInt(splitData[1]);
+		int dataDia = Integer.parseInt(splitData[0]);
+		LocalDate data = LocalDate.of(dataAno, dataMes, dataDia);
 		this.dataInicio = data;
 	}
 
@@ -86,14 +89,12 @@ public class Tarefa {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Status getStatus() {
+	public Status getStatus() { //TODO: Integrar o status com a classe Status
 		LocalDate dataPrevistaEntrega = getDataPrevistaEntrega();
 		LocalDate hoje = LocalDate.now();
 		if (hoje.isBefore(dataPrevistaEntrega)) {
-			System.out.println("É antes");
 		}
 		else if (hoje.isAfter(dataPrevistaEntrega));
-		return status;
 	}
 	
 	public void setStatus(Status status) {

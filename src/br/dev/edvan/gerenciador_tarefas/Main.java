@@ -21,8 +21,6 @@ import br.dev.edvan.gerenciador_tarefas.utils.Utils;
 
 public class Main {
 	public static void main(String[] args) {
-
-
 		new StarterFrame();
 
 	}
