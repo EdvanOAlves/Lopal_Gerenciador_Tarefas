@@ -148,7 +148,9 @@ public class TarefaFrame {
 				tarefa.setDataInicio(txtDataInicio.getText());
 				tarefa.setPrazo(Integer.parseInt(txtPrazo.getText()));
 //				tarefa.setDataEntrega(txtDataEntrega.getText()); //TODO: Calculo de data de entrega
-				tarefa.setStatus(null);
+				tarefa.getStatus();	
+				//TODO: Status vai se atualizar com a data de início e o prazo, não vai ter input de fato
+				//Ou... Vamos poder abrir uma tarefa pela ListaTarefas para marcar ela como concluida?
 
 				// Salvando nossa tarefa
 				TarefaDAO dao = new TarefaDAO(tarefa);

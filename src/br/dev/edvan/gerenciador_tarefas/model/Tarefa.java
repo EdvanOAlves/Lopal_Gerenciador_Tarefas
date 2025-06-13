@@ -25,11 +25,11 @@ public class Tarefa {
 	public String getId() {
 		return id;
 	}
-	
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -58,8 +58,9 @@ public class Tarefa {
 		return dataInicio;
 	}
 
-	public void setDataInicio(String dataText) { //TODO: Fazer a devida conversão do String recebido para
-		String[] splitData= dataText.split("/");
+	public void setDataInicio(String dataText) { // TODO: Fazer a devida conversão do String recebido para
+		dataText = dataText.replace('/', '-'); //Tratamento de input, dessa forma posso consultar do arquivo e do input usando o mesmo método
+		String[] splitData = dataText.split("-");
 		int dataAno = Integer.parseInt(splitData[2]);
 		int dataMes = Integer.parseInt(splitData[1]);
 		int dataDia = Integer.parseInt(splitData[0]);
@@ -80,7 +81,6 @@ public class Tarefa {
 
 	}
 
-
 	public LocalDate getDataEntrega() {
 		return dataEntrega;
 	}
@@ -89,17 +89,41 @@ public class Tarefa {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Status getStatus() { //TODO: Integrar o status com a classe Status
+	public Status getStatus() {
+		calcStatus();
+		return status;
+	}
+
+
+	private void calcStatus() { 
 		LocalDate dataPrevistaEntrega = getDataPrevistaEntrega();
 		LocalDate hoje = LocalDate.now();
-		if (hoje.isBefore(dataPrevistaEntrega)) {
+		if (hoje.isBefore(dataInicio)) {
+			setStatus(Status.NAO_INICIADO);
+
 		}
-		else if (hoje.isAfter(dataPrevistaEntrega));
+		if (hoje.isBefore(dataPrevistaEntrega)) {
+			setStatus(Status.EM_ANDAMENTO);
+		} else if (hoje.isAfter(dataPrevistaEntrega)) {
+			setStatus(Status.EM_ATRASO);
+		}
 	}
-	
-	public void setStatus(Status status) {
+
+	private void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
+
+	public void updateStatus(Status status) {
+		//TODO: Inserir método para concluir a tarefa
+
+	}
+
+	@Override
+	public String toString() {
+		String matricula = responsavel.getMatricula();
+		String responsavelNome = responsavel.getNome();
+		return 
+				id+","+nome+","+descricao+","+matricula+","+responsavelNome+","+dataInicio+","+getDataPrevistaEntrega()+","+dataEntrega; 
+	}
+
 }
