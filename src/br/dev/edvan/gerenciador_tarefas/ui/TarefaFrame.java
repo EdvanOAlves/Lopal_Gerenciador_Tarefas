@@ -35,7 +35,7 @@ public class TarefaFrame {
 	private JLabel labelDataInicio;
 	private JLabel labelPrazo;
 	private JLabel labelDataPrazo;
-	private JLabel labelStatus;
+//	private JLabel labelStatus;
 
 	private JTextField txtId;
 	private JTextField txtNomeTarefa;
@@ -44,7 +44,7 @@ public class TarefaFrame {
 	private JTextField txtDataInicio;
 	private JTextField txtPrazo;
 	private JTextField txtDataPrazo;
-	private JComboBox<Status> comboStatus;
+//	private JComboBox<Status> comboStatus;
 
 	private JButton btnSalvar;
 	private JButton btnSair;
@@ -55,7 +55,7 @@ public class TarefaFrame {
 	}
 
 	private void criarTela(JDialog parentFrame) {
-		JDialog telaTarefa = new JDialog(parentFrame, "Registrar nova tarefa");
+		JDialog telaTarefa = new JDialog(parentFrame, "Registrar nova tarefa", true);
 
 		telaTarefa.setSize(410, 500);
 		telaTarefa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -92,6 +92,7 @@ public class TarefaFrame {
 		labelDataInicio.setBounds(10, 230, 100, 30);
 		txtDataInicio = new JTextField();
 		txtDataInicio.setBounds(10, 255, 100, 30);
+		//TODO: Seria interessante ele por padrão já vir com a data de hoje, ia ser bem conveniente
 
 		labelPrazo = new JLabel("Prazo(dias):");
 		labelPrazo.setBounds(10, 285, 100, 30);
@@ -103,12 +104,13 @@ public class TarefaFrame {
 		txtDataPrazo = new JTextField();
 		txtDataPrazo.setBounds(10, 365, 100, 30);
 		txtDataPrazo.setEditable(false);
-		// TODO: Calculo de data com a data de início e o prazo
 
-		labelStatus = new JLabel("Status");
-		labelStatus.setBounds(260, 230, 120, 30);
-		comboStatus = new JComboBox<>(Status.values());
-		comboStatus.setBounds(260, 255, 100, 30);
+//		labelStatus = new JLabel("Status");
+//		labelStatus.setBounds(260, 230, 120, 30);
+//		comboStatus = new JComboBox<>(Status.values());
+//		comboStatus.setBounds(260, 255, 100, 30);
+		// TODO: Comentado tudo que envolvia status porque no formulário ele não faz nada (além de crashar o
+		// programa caso você atribua uma tarefa com status de Concluída) 
 
 		btnSair = new JButton("Sair");
 		btnSair.setBounds(10, 410, 120, 40);
@@ -132,8 +134,8 @@ public class TarefaFrame {
 		painel.add(txtPrazo);
 		painel.add(labelDataPrazo);
 		painel.add(txtDataPrazo);
-		painel.add(labelStatus);
-		painel.add(comboStatus);
+//		painel.add(labelStatus);
+//		painel.add(comboStatus);
 
 		painel.add(btnSalvar);
 		painel.add(btnSair);
@@ -184,8 +186,6 @@ public class TarefaFrame {
 				
 				String funcionarioMatricula = daoFuncionario.findMatricula(responsavelIndex);
 				Funcionario funcionario = daoFuncionario.getFuncionario(funcionarioMatricula);
-		
-				
 	
 				// Montando a tarefa
 				Tarefa tarefa = new Tarefa(funcionario);
@@ -194,10 +194,7 @@ public class TarefaFrame {
 				tarefa.setDescricao(txtDescricao.getText());
 				tarefa.setDataInicio(txtDataInicio.getText());
 				tarefa.setPrazo(Integer.parseInt(txtPrazo.getText()));
-				tarefa.setDataEntrega(txtDataPrazo.getText());
-				tarefa.getStatus();	
-				//TODO: Status vai se atualizar com a data de início e o prazo, não vai ter input de fato
-				//Ou... Vamos poder abrir uma tarefa pela ListaTarefas para marcar ela como concluida?
+//				tarefa.setStatus(comboStatus.getSelectedItem().toString());
 
 				// Salvando nossa tarefa
 				TarefaDAO daoTarefa = new TarefaDAO(tarefa);
@@ -233,7 +230,12 @@ public class TarefaFrame {
 	}
 
 	private void limparFormulario() {
-
+		txtId.setText(Utils.gerarUUID8());
+		txtNomeTarefa.setText(null);
+		txtDescricao.setText(null);
+		txtDataInicio.setText(null);
+		txtPrazo.setText(null);
+		txtNomeTarefa.requestFocus();
 	}
 
 

@@ -30,4 +30,10 @@ public class ArquivoTarefaFactory {
 		
 	}
 
+	public BufferedWriter getDbBW() throws IOException{
+		fw = new FileWriter(caminho, false);//ditando o caminho e avisando o programa que vai ser append true
+		bw = new BufferedWriter(fw);
+		
+		return bw;
+	}
 }

@@ -43,8 +43,11 @@ public class TarefaListaFrame {
 	Container painel;
 
 	String[] colunas = { "ID", "TAREFA", "DESCRIÇÃO", "INÍCIO", "VENCIMENTO", "RESPONSÁVEL", "STATUS" };
-	Rectangle referenciaConcluir = new Rectangle(600, 90, 40, 17);
 	private JButton[] btnsConcluir;
+
+	Rectangle referenciaBtnConcluir = new Rectangle(600, 90, 40, 17);
+
+	TarefaDAO dao;
 
 	public TarefaListaFrame(JFrame parentFrame) {
 		criarTela(parentFrame);
@@ -73,12 +76,7 @@ public class TarefaListaFrame {
 		scrollTarefas.setBounds(10, 70, 600, 300);
 
 		// Criando Tabela
-		model = new DefaultTableModel(colunas, 0) {
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return column == 4;
-			}
-		};
+		model = new DefaultTableModel(colunas, 0);
 		tabelaTarefas = new JTable(model);
 
 		scrollTarefas = new JScrollPane(tabelaTarefas);
@@ -92,9 +90,8 @@ public class TarefaListaFrame {
 		painel.add(labelTitulo);
 		painel.add(btnNovaTarefa);
 
-		telaTarefaLista.setVisible(true);
-		btnNovaTarefa.addActionListener(new ActionListener() {
 
+		btnNovaTarefa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -103,12 +100,13 @@ public class TarefaListaFrame {
 			}
 		});
 
+		telaTarefaLista.setVisible(true);
 	}
 
 	private void carregarDadosTabela() {
 		List<Tarefa> tarefas = new ArrayList<>();
 		// Acessando os dados e montando uma lista
-		TarefaDAO dao = new TarefaDAO(null);
+		dao = new TarefaDAO(null);
 		tarefas = dao.getTarefas();
 		Object[][] dados = new Object[tarefas.size()][7];
 		btnsConcluir = new JButton[tarefas.size()];
@@ -123,31 +121,38 @@ public class TarefaListaFrame {
 			dados[i][5] = tarefa.getResponsavel().getNome();
 			dados[i][6] = tarefa.getStatus();
 
-			btnsConcluir[i] = criarBtnConcluir(i, tarefa.getId());
+			btnsConcluir[i] = criarBtnConcluir(i, tarefa.getId(), tarefa.getNome());
 
 			i++;
 		}
 		model.setDataVector(dados, colunas);
-
 		addElements(btnsConcluir);
+		
+
 
 	}
 
-	// Função para criar um botão para conclusão de tarefa com posicionamento e funcionalidade sendo configurados automaticamente
-	private JButton criarBtnConcluir(int i, String tarefaId) {
+	// Função para criar um botão para conclusão de tarefa com posicionamento e
+	// funcionalidade sendo configurados automaticamente
+	private JButton criarBtnConcluir(int i, String tarefaId, String tarefaNome) {
 		JButton buttonConcluir = new JButton("...");
-		int y = 90 + (17 * i);
-
-		buttonConcluir.addActionListener(e -> {
-			int resposta = JOptionPane.showConfirmDialog(tabelaTarefas, "Tarefa: "+tarefaId +"\nConcluir tarefa?", "Atenção" ,JOptionPane.YES_NO_OPTION);
-			if (resposta == 0) {
+		int y = 90 + (16 * i);
+		
+		buttonConcluir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int resposta = JOptionPane.showConfirmDialog(tabelaTarefas, "Tarefa: "+tarefaId +" - "+ tarefaNome +"\nConcluir tarefa?", "Atenção" ,JOptionPane.YES_NO_OPTION);
+				if (resposta == 0) {	
+					dao.concluirTarefa(tarefaId);
+					carregarDadosTabela();
+				}
 				
 			}
-
 		});
 
-		referenciaConcluir.setLocation(660, y);
-		buttonConcluir.setBounds(referenciaConcluir);
+		referenciaBtnConcluir.setLocation(660, y);
+		buttonConcluir.setBounds(referenciaBtnConcluir);
 		// TODO Auto-generated method stub
 		return buttonConcluir;
 	}

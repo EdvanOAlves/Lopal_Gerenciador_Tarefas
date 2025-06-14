@@ -83,12 +83,23 @@ public class Tarefa {
 		return dataEntrega;
 	}
 
-	public void setDataEntrega(String string) {
-//		this.dataEntrega = string; TODO: Método para gravar a data de conclusão, usado no TarefaListaFrame quando marcam o "Concluído"
+	public void setDataEntrega(LocalDate data) {
+	}
+	
+	public void setDataEntrega(String dataTxt) {
+		if (dataTxt.equals("null")) {
+			
+		}
+		else{
+			System.out.println(dataTxt);
+			this.dataEntrega = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd/MM/yyyy"));			
+		}
 	}
 
 	public Status getStatus() {
-		calcStatus();
+		if (status == null) {
+			calcStatus();			
+		}
 		return status;
 	}
 
@@ -107,13 +118,17 @@ public class Tarefa {
 		}
 	}
 
-	private void setStatus(Status status) {
+	public void setStatus(Status status) { //Para definir o status em atualização (seja por calculo ou input)
 		this.status = status;
 	}
-
-	public void updateStatus(Status status) {
-		//TODO: Inserir método para concluir a tarefa
-
+	public void setStatus(String status) { //Para definir o status com base no banco de dados
+		if (status.equals("CONCLUIDO")) {
+			this.status = Status.CONCLUIDO;
+		}
+		else {
+			calcStatus();
+		}
+	
 	}
 
 	@Override
@@ -121,7 +136,7 @@ public class Tarefa {
 		String matricula = responsavel.getMatricula();
 		String responsavelNome = responsavel.getNome();
 		return 
-				id+","+nome+","+descricao+","+matricula+","+responsavelNome+","+txtDataInicio+","+prazo+","+dataEntrega + "\n"; 
+				id+","+nome+","+descricao+","+matricula+","+responsavelNome+","+txtDataInicio+","+prazo+","+status+","+dataEntrega + "\n"; 
 	}
 
 }

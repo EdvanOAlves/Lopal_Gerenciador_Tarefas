@@ -75,7 +75,7 @@ public class FuncionarioDAO {
 		
 		for (int i = 0 ; i < funcionarios.size(); i++) {
 			funcionario = funcionarios.get(i);
-			matriculaTemp = funcionarios.get(i).getMatricula();
+			matriculaTemp = funcionario.getMatricula();
 			if (matriculaTemp.equals(matricula)) {
 				return funcionario;
 			}
