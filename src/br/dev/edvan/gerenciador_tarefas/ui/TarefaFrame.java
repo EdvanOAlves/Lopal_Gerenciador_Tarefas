@@ -26,6 +26,8 @@ import br.dev.edvan.gerenciador_tarefas.model.Tarefa;
 import br.dev.edvan.gerenciador_tarefas.utils.Utils;
 
 public class TarefaFrame {
+	private FuncionarioDAO daoFuncionario = new FuncionarioDAO(null);
+	
 	private JLabel labelId;
 	private JLabel labelNomeTarefa;
 	private JLabel labelDescricao;
@@ -83,7 +85,7 @@ public class TarefaFrame {
 
 		labelResponsavel = new JLabel("Responsável:");
 		labelResponsavel.setBounds(10, 175, 150, 30);
-		comboBoxResponsavel = new JComboBox<>(getFuncionariosNomes());
+		comboBoxResponsavel = new JComboBox<>();
 		comboBoxResponsavel.setBounds(10, 200, 200, 30);
 
 		labelDataInicio = new JLabel("Data de início:");
@@ -180,7 +182,10 @@ public class TarefaFrame {
 			public void actionPerformed(ActionEvent e) {
 				//TODO: Reorganizar isso aqui
 				int responsavelIndex = comboBoxResponsavel.getSelectedIndex();
-				Funcionario funcionario = getFuncionario(findMatricula(responsavelIndex));
+				
+				String funcionarioMatricula = daoFuncionario.findMatricula(responsavelIndex);
+				Funcionario funcionario = daoFuncionario.getFuncionario(funcionarioMatricula);
+		
 				
 	
 				// Montando a tarefa
@@ -196,8 +201,8 @@ public class TarefaFrame {
 				//Ou... Vamos poder abrir uma tarefa pela ListaTarefas para marcar ela como concluida?
 
 				// Salvando nossa tarefa
-				TarefaDAO dao = new TarefaDAO(tarefa);
-				boolean success = dao.gravar();
+				TarefaDAO daoTarefa = new TarefaDAO(tarefa);
+				boolean success = daoTarefa.gravar();
 
 				// Feedback para o usario
 				if (success) {
@@ -232,59 +237,7 @@ public class TarefaFrame {
 
 	}
 
-	// Brainstorm para resolver o assign de responsável:
-	// TODO: Otimizar isso tudo, talvez migrar para outras classes
-	private Object[][] listarFuncionarios() {
-		List<Funcionario> funcionarios = new ArrayList<>();
 
-		// Acessando os dados e montando uma lista
-		FuncionarioDAO dao = new FuncionarioDAO(null);
-		funcionarios = dao.getFuncionarios();
-
-		Object[][] dados = new Object[funcionarios.size()][2];
-
-		int i = 0;
-		for (Funcionario f : funcionarios) {
-			dados[i][0] = f.getMatricula()/* .toUpperCase() */;
-			dados[i][1] = f.getNome();
-			i++;
-		}
-		return dados;
-	}
-
-	private String[] getFuncionariosNomes() {
-		Object[][] dados = listarFuncionarios();
-
-		String[] funcionariosNomes = new String[dados.length];
-
-		for (int i = 0; i < funcionariosNomes.length; i++) {
-			funcionariosNomes[i] = (String) dados[i][1];
-		}
-		return funcionariosNomes;
-	}
-
-	private String findMatricula(int responsavelIndex) {
-		Object[][] dados = listarFuncionarios(); 
-		String matricula = (String) dados[responsavelIndex][0];
-		return matricula;
-	}
 	
-	private Funcionario getFuncionario(String matricula) {
-		List<Funcionario> funcionarios = new ArrayList<>();
-		FuncionarioDAO dao = new FuncionarioDAO(null);
-		funcionarios = dao.getFuncionarios();
-		
-		String matriculaTemp;
-		Funcionario funcionario = null;
-		
-		for (int i = 0 ; i < funcionarios.size(); i++) {
-			funcionario = funcionarios.get(i);
-			matriculaTemp = funcionarios.get(i).getMatricula();
-			if (matriculaTemp.equals(matricula)) {
-				return funcionario;
-			}
-		}
-		return funcionario;
-	}
 
 }

@@ -66,10 +66,45 @@ public class FuncionarioDAO {
 
 	}
 	
-	public Funcionario findFuncionario(String matricula) {
-		Funcionario funcionario;
+	public Funcionario getFuncionario(String matricula) {
+		List<Funcionario> funcionarios = new ArrayList<>();
+		funcionarios = getFuncionarios();
 		
+		String matriculaTemp;
+		Funcionario funcionario = null;
+		
+		for (int i = 0 ; i < funcionarios.size(); i++) {
+			funcionario = funcionarios.get(i);
+			matriculaTemp = funcionarios.get(i).getMatricula();
+			if (matriculaTemp.equals(matricula)) {
+				return funcionario;
+			}
+		}
 		return funcionario;
 	}
 
+	
+	public String findMatricula(int responsavelIndex) {
+		Object[][] dados = listarFuncionarios(); 
+		String matricula = (String) dados[responsavelIndex][0];
+		return matricula;
+	}
+	
+	private Object[][] listarFuncionarios() {
+		List<Funcionario> funcionarios = new ArrayList<>();
+
+		// Acessando os dados e montando uma lista
+		FuncionarioDAO dao = new FuncionarioDAO(null);
+		funcionarios = dao.getFuncionarios();
+
+		Object[][] dados = new Object[funcionarios.size()][2];
+
+		int i = 0;
+		for (Funcionario f : funcionarios) {
+			dados[i][0] = f.getMatricula()/* .toUpperCase() */;
+			dados[i][1] = f.getNome();
+			i++;
+		}
+		return dados;
+	}
 }

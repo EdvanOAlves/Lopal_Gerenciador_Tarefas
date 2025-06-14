@@ -88,7 +88,6 @@ public class TarefaListaFrame {
 
 	private void carregarDadosTabela() { // TODO: Adaptar esse metodo usando o de funcionario como base
 		List<Tarefa> tarefas = new ArrayList<>();
-		System.out.println("Foi");
 		//Acessando os dados e montando uma lista
 		TarefaDAO dao = new TarefaDAO(null);
 		tarefas = dao.getTarefas();
