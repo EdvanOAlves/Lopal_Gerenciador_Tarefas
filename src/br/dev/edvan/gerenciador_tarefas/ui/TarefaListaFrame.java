@@ -63,7 +63,7 @@ public class TarefaListaFrame {
 		tabelaTarefas = new JTable(model);
 		scrollTarefas = new JScrollPane(tabelaTarefas);
 		scrollTarefas.setBounds(10, 70, 650, 300);
-		carregarDadosTabela();
+//		carregarDadosTabela();
 
 		btnNovaTarefa = new JButton("Registrar nova tarefa");
 		btnNovaTarefa.setBounds(425, 380, 235, 50);

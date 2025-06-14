@@ -42,12 +42,20 @@ public class TarefaDAO {
 				if (linha != null) {
 					String[] tarefaVetor = linha.split(",");
 					Tarefa tarefa = new Tarefa(null);
+					FuncionarioDAO daoFuncionario= new FuncionarioDAO(null);
+					
 					
 					tarefa.setId(tarefaVetor[0]);
 					tarefa.setNome(tarefaVetor[1]);
-//					tarefa.setResponsavel(tarefaVetor[2]); //TODO: precisa buscar o funcionário pela matricula
-//					tarefa.setDataInicio(null); //TODO: Lidar com o LocalDate e a conversão dele
+					tarefa.setDescricao(tarefaVetor[2]);
+					tarefa.setResponsavel(daoFuncionario.getFuncionario(tarefaVetor[3]));
+					tarefa.setDataInicio(tarefaVetor[5]);
+					tarefa.setPrazo(Integer.parseInt(tarefaVetor[6]));
+					tarefa.setDataEntrega(tarefaVetor[7]);
 					tarefa.setPrazo(0);
+					//TODO: tarefaVetor[4] guarda o nome do responsável que acaba não sendo relevante. 
+					//Fazer a substituição do código para otimização depois
+					tarefas.add(tarefa);
 				}
 			}
 			

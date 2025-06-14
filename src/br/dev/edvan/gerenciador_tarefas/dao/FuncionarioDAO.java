@@ -107,4 +107,14 @@ public class FuncionarioDAO {
 		}
 		return dados;
 	}
+	public String[] getFuncionariosNomes() {
+		Object[][] dados = listarFuncionarios();
+		String[] funcionariosNomes = new String[dados.length];
+		for (int i = 0; i < funcionariosNomes.length; i++) {
+
+
+			funcionariosNomes[i] = (String) dados[i][1];
+		}
+		return funcionariosNomes;
+	}
 }

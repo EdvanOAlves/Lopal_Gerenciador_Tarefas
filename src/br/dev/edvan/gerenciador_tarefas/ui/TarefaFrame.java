@@ -85,7 +85,7 @@ public class TarefaFrame {
 
 		labelResponsavel = new JLabel("Responsável:");
 		labelResponsavel.setBounds(10, 175, 150, 30);
-		comboBoxResponsavel = new JComboBox<>();
+		comboBoxResponsavel = new JComboBox<>(daoFuncionario.getFuncionariosNomes());
 		comboBoxResponsavel.setBounds(10, 200, 200, 30);
 
 		labelDataInicio = new JLabel("Data de início:");
@@ -125,7 +125,7 @@ public class TarefaFrame {
 		painel.add(labelDescricao);
 		painel.add(txtDescricao);
 		painel.add(labelResponsavel);
-		painel.add(comboBoxResponsavel); // TODO: Funcionalidade de ComboBox
+		painel.add(comboBoxResponsavel);
 		painel.add(labelDataInicio);
 		painel.add(txtDataInicio);
 		painel.add(labelPrazo);
@@ -160,8 +160,7 @@ public class TarefaFrame {
 				String dataTxt = txtDataInicio.getText();
 				String prazoTxt = txtPrazo.getText();
 				try {
-					dataTxt = dataTxt.replace('/', '-'); //Tratamento de input, dessa forma posso consultar do arquivo e do input usando o mesmo método
-					LocalDate data = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+					LocalDate data = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 					//TODO: esse formato funciona, mas acaba barrando input de "d/M/yyyy" que também deveria funcionar, ajustar depois
 					int prazo = Integer.parseInt(prazoTxt);
 					LocalDate dataPrevista = (LocalDate) data.plusDays(prazo);

@@ -1,6 +1,7 @@
 package br.dev.edvan.gerenciador_tarefas.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import br.dev.edvan.gerenciador_tarefas.utils.Utils;
 
@@ -58,14 +59,8 @@ public class Tarefa {
 		return dataInicio;
 	}
 
-	public void setDataInicio(String dataText) { // TODO: Fazer a devida conversão do String recebido para
-		dataText = dataText.replace('/', '-'); //Tratamento de input, dessa forma posso consultar do arquivo e do input usando o mesmo método
-		String[] splitData = dataText.split("-");
-		int dataAno = Integer.parseInt(splitData[2]);
-		int dataMes = Integer.parseInt(splitData[1]);
-		int dataDia = Integer.parseInt(splitData[0]);
-		LocalDate data = LocalDate.of(dataAno, dataMes, dataDia);
-		this.dataInicio = data;
+	public void setDataInicio(String dataTxt) {
+		this.dataInicio = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
 
 	public int getPrazo() {
