@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class TarefaListaFrame {
 	private JTable tabelaTarefas;
 	private JScrollPane scrollTarefas;
 
-	String[] colunas = { "ID", "TAREFA", "DESCRIÇÃO", "RESPONSÁVEL", "STATUS" };
+	String[] colunas = { "ID", "TAREFA", "DESCRIÇÃO","INÍCIO", "VENCIMENTO" , "RESPONSÁVEL", "STATUS" };
 
 	public TarefaListaFrame(JFrame parentFrame) {
 		criarTela(parentFrame);
@@ -111,15 +112,17 @@ public class TarefaListaFrame {
 		TarefaDAO dao = new TarefaDAO(null);
 		tarefas = dao.getTarefas();
 
-		Object[][] dados = new Object[tarefas.size()][5];
+		Object[][] dados = new Object[tarefas.size()][7];
 
 		int i = 0;
 		for (Tarefa tarefa : tarefas) {
 			dados[i][0] = tarefa.getId()/* .toUpperCase() */;
 			dados[i][1] = tarefa.getNome();
 			dados[i][2] = tarefa.getDescricao();
-			dados[i][3] = tarefa.getResponsavel().getNome();
-			dados[i][4] = tarefa.getStatus();
+			dados[i][3] = tarefa.getDataInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			dados[i][4] = tarefa.getDataPrazo().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			dados[i][5] = tarefa.getResponsavel().getNome();
+			dados[i][6] = tarefa.getStatus();
 			i++;
 		}
 		model.setDataVector(dados, colunas);
