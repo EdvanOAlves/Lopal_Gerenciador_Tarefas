@@ -14,6 +14,7 @@ public class Tarefa {
 	private int prazo;
 	private LocalDate dataEntrega;
 	private Status status;
+	private String txtDataInicio;
 
 	public Tarefa(Funcionario funcionario) {
 		// TODO Auto-generated constructor stub
@@ -61,6 +62,7 @@ public class Tarefa {
 
 	public void setDataInicio(String dataTxt) {
 		this.dataInicio = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		txtDataInicio = dataInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); //Eu poderia fazer isso no toString ou aqui com uma variável, preferi fazer aqui
 	}
 
 	public int getPrazo() {
@@ -119,7 +121,7 @@ public class Tarefa {
 		String matricula = responsavel.getMatricula();
 		String responsavelNome = responsavel.getNome();
 		return 
-				id+","+nome+","+descricao+","+matricula+","+responsavelNome+","+dataInicio+","+prazo+","+dataEntrega; 
+				id+","+nome+","+descricao+","+matricula+","+responsavelNome+","+txtDataInicio+","+prazo+","+dataEntrega + "\n"; 
 	}
 
 }

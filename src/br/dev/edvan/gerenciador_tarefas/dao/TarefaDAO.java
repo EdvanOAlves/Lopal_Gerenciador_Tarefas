@@ -52,7 +52,6 @@ public class TarefaDAO {
 					tarefa.setDataInicio(tarefaVetor[5]);
 					tarefa.setPrazo(Integer.parseInt(tarefaVetor[6]));
 					tarefa.setDataEntrega(tarefaVetor[7]);
-					tarefa.setPrazo(0);
 					//TODO: tarefaVetor[4] guarda o nome do responsável que acaba não sendo relevante. 
 					//Fazer a substituição do código para otimização depois
 					tarefas.add(tarefa);

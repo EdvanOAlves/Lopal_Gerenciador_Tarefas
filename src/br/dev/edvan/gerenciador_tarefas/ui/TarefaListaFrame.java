@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 
 import br.dev.edvan.gerenciador_tarefas.dao.TarefaDAO;
 import br.dev.edvan.gerenciador_tarefas.model.Status;
@@ -59,11 +61,28 @@ public class TarefaListaFrame {
 		scrollTarefas.setBounds(10, 70, 600, 300);
 
 		// Criando Tabela
-		model = new DefaultTableModel(colunas, 100);
+		model = new DefaultTableModel(colunas, 0) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return column == 4;
+			}
+		};
 		tabelaTarefas = new JTable(model);
+		
 		scrollTarefas = new JScrollPane(tabelaTarefas);
 		scrollTarefas.setBounds(10, 70, 650, 300);
-//		carregarDadosTabela();
+		carregarDadosTabela();
+		
+		//Seleção de opção para atualizar o Status (no caso marcar o concluído)
+		JComboBox<Status> statusBox;
+		statusBox = new JComboBox<>(Status.values());
+		DefaultCellEditor editor = new DefaultCellEditor(statusBox);
+		tabelaTarefas.getColumnModel().getColumn(4).setCellEditor(editor);
+		// TODO: O sistema precisa reconhecer o "CONCLUIDO" quando selecionado, gravar essa atualização e 
+		// registrar a data de conclusão
+		// TODO: Não encontrei ainda como limitar as opções, por conta dessa configuração do ComboBox ocorrer 
+		// fora do carregarDados() acaba não sendo muito viável usar um ({getStatus(), Status.CONCLUIDO}) 
+		// nas opções, mas o ideal seria encontrar como fazer isso
 
 		btnNovaTarefa = new JButton("Registrar nova tarefa");
 		btnNovaTarefa.setBounds(425, 380, 235, 50);
@@ -96,14 +115,11 @@ public class TarefaListaFrame {
 
 		int i = 0;
 		for (Tarefa tarefa : tarefas) {
-			System.out.println("Foi2");
-			JComboBox<Status> statusBox;
-			statusBox = new JComboBox<>(new Status[]{tarefa.getStatus(), Status.CONCLUIDO});
 			dados[i][0] = tarefa.getId()/* .toUpperCase() */;
 			dados[i][1] = tarefa.getNome();
 			dados[i][2] = tarefa.getDescricao();
 			dados[i][3] = tarefa.getResponsavel().getNome();
-			dados[i][4] = statusBox;
+			dados[i][4] = tarefa.getStatus();
 			i++;
 		}
 		model.setDataVector(dados, colunas);
