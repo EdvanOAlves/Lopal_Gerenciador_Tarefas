@@ -1,10 +1,15 @@
 package br.dev.edvan.gerenciador_tarefas.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +20,10 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
@@ -33,7 +40,11 @@ public class TarefaListaFrame {
 	private JTable tabelaTarefas;
 	private JScrollPane scrollTarefas;
 
-	String[] colunas = { "ID", "TAREFA", "DESCRIÇÃO","INÍCIO", "VENCIMENTO" , "RESPONSÁVEL", "STATUS" };
+	Container painel;
+
+	String[] colunas = { "ID", "TAREFA", "DESCRIÇÃO", "INÍCIO", "VENCIMENTO", "RESPONSÁVEL", "STATUS" };
+	Rectangle referenciaConcluir = new Rectangle(600, 90, 40, 17);
+	private JButton[] btnsConcluir;
 
 	public TarefaListaFrame(JFrame parentFrame) {
 		criarTela(parentFrame);
@@ -43,14 +54,14 @@ public class TarefaListaFrame {
 	private void criarTela(JFrame parentFrame) {
 		// TODO: A propria tabela que vai servir de lista
 		// Configuração inicial da janela
-		JDialog telaTarefaLista = new JDialog(parentFrame, "Lista de tarefas");
-		telaTarefaLista.setSize(690, 500);
+		JDialog telaTarefaLista = new JDialog(parentFrame, "Lista de tarefas", true);
+		telaTarefaLista.setSize(750, 500);
 		telaTarefaLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		telaTarefaLista.setLayout(null);
 		telaTarefaLista.setLocationRelativeTo(null);
 		telaTarefaLista.setResizable(false);
 
-		Container painel = telaTarefaLista.getContentPane();
+		painel = telaTarefaLista.getContentPane();
 
 		// Elementos da janela
 		labelTitulo = new JLabel("Registro de Tarefas");
@@ -69,25 +80,13 @@ public class TarefaListaFrame {
 			}
 		};
 		tabelaTarefas = new JTable(model);
-		
+
 		scrollTarefas = new JScrollPane(tabelaTarefas);
 		scrollTarefas.setBounds(10, 70, 650, 300);
 		carregarDadosTabela();
-		
-		//Seleção de opção para atualizar o Status (no caso marcar o concluído)
-		JComboBox<Status> statusBox;
-		statusBox = new JComboBox<>(Status.values());
-		DefaultCellEditor editor = new DefaultCellEditor(statusBox);
-		tabelaTarefas.getColumnModel().getColumn(4).setCellEditor(editor);
-		// TODO: O sistema precisa reconhecer o "CONCLUIDO" quando selecionado, gravar essa atualização e 
-		// registrar a data de conclusão
-		// TODO: Não encontrei ainda como limitar as opções, por conta dessa configuração do ComboBox ocorrer 
-		// fora do carregarDados() acaba não sendo muito viável usar um ({getStatus(), Status.CONCLUIDO}) 
-		// nas opções, mas o ideal seria encontrar como fazer isso
 
 		btnNovaTarefa = new JButton("Registrar nova tarefa");
 		btnNovaTarefa.setBounds(425, 380, 235, 50);
-
 
 		painel.add(scrollTarefas);
 		painel.add(labelTitulo);
@@ -106,13 +105,13 @@ public class TarefaListaFrame {
 
 	}
 
-	private void carregarDadosTabela() { // TODO: Adaptar esse metodo usando o de funcionario como base
+	private void carregarDadosTabela() {
 		List<Tarefa> tarefas = new ArrayList<>();
-		//Acessando os dados e montando uma lista
+		// Acessando os dados e montando uma lista
 		TarefaDAO dao = new TarefaDAO(null);
 		tarefas = dao.getTarefas();
-
 		Object[][] dados = new Object[tarefas.size()][7];
+		btnsConcluir = new JButton[tarefas.size()];
 
 		int i = 0;
 		for (Tarefa tarefa : tarefas) {
@@ -123,9 +122,41 @@ public class TarefaListaFrame {
 			dados[i][4] = tarefa.getDataPrazo().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			dados[i][5] = tarefa.getResponsavel().getNome();
 			dados[i][6] = tarefa.getStatus();
+
+			btnsConcluir[i] = criarBtnConcluir(i, tarefa.getId());
+
 			i++;
 		}
 		model.setDataVector(dados, colunas);
+
+		addElements(btnsConcluir);
+
+	}
+
+	// Função para criar um botão para conclusão de tarefa com posicionamento e funcionalidade sendo configurados automaticamente
+	private JButton criarBtnConcluir(int i, String tarefaId) {
+		JButton buttonConcluir = new JButton("...");
+		int y = 90 + (17 * i);
+
+		buttonConcluir.addActionListener(e -> {
+			int resposta = JOptionPane.showConfirmDialog(tabelaTarefas, "Tarefa: "+tarefaId +"\nConcluir tarefa?", "Atenção" ,JOptionPane.YES_NO_OPTION);
+			if (resposta == 0) {
+				
+			}
+
+		});
+
+		referenciaConcluir.setLocation(660, y);
+		buttonConcluir.setBounds(referenciaConcluir);
+		// TODO Auto-generated method stub
+		return buttonConcluir;
+	}
+
+	// Função para adicionar elementos no painel usando array
+	private void addElements(Component[] elements) {
+		for (Component element : elements) {
+			painel.add(element);
+		}
 	}
 
 }

@@ -24,8 +24,8 @@ public class FuncionarioDAO {
 			BufferedWriter bw = aff.getBw();
 			bw.write(funcionario.toString());
 			bw.flush();
-			// aff.getBw().write(funcionario.toString()).flush(); // Má pratica, só vilões
-			// fazem isso
+			// aff.getBw().write(funcionario.toString()).flush(); 
+			// /\/\/\/\ Má pratica, só vilões fazem isso
 			return true;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
