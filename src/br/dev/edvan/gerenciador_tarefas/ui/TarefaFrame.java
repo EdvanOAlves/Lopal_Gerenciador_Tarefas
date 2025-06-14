@@ -3,6 +3,8 @@ package br.dev.edvan.gerenciador_tarefas.ui;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import br.dev.edvan.gerenciador_tarefas.dao.FuncionarioDAO;
 import br.dev.edvan.gerenciador_tarefas.dao.TarefaDAO;
@@ -27,7 +31,7 @@ public class TarefaFrame {
 	private JLabel labelResponsavel;
 	private JLabel labelDataInicio;
 	private JLabel labelPrazo;
-	private JLabel labelDataDeEntrega;
+	private JLabel labelDataPrazo;
 	private JLabel labelStatus;
 
 	private JTextField txtId;
@@ -36,7 +40,7 @@ public class TarefaFrame {
 	private JComboBox<String> comboBoxResponsavel;
 	private JTextField txtDataInicio;
 	private JTextField txtPrazo;
-	private JTextField txtDataEntrega;
+	private JTextField txtDataPrazo;
 //	private JComboBox<E> comboStatus;
 
 	private JButton btnSalvar;
@@ -92,11 +96,11 @@ public class TarefaFrame {
 		txtPrazo = new JTextField();
 		txtPrazo.setBounds(10, 310, 100, 30);
 
-		labelDataDeEntrega = new JLabel("Data de entrega:");
-		labelDataDeEntrega.setBounds(10, 340, 100, 30);
-		txtDataEntrega = new JTextField();
-		txtDataEntrega.setEnabled(false);
-		txtDataEntrega.setBounds(10, 365, 100, 30);
+		labelDataPrazo = new JLabel("Data de entrega:");
+		labelDataPrazo.setBounds(10, 340, 100, 30);
+		txtDataPrazo = new JTextField();
+		txtDataPrazo.setBounds(10, 365, 100, 30);
+		txtDataPrazo.setEditable(false);
 		// TODO: Calculo de data com a data de início e o prazo
 
 		labelStatus = new JLabel("Status");
@@ -124,13 +128,52 @@ public class TarefaFrame {
 		painel.add(txtDataInicio);
 		painel.add(labelPrazo);
 		painel.add(txtPrazo);
-		painel.add(labelDataDeEntrega);
-		painel.add(txtDataEntrega);
+		painel.add(labelDataPrazo);
+		painel.add(txtDataPrazo);
 		painel.add(labelStatus);
 //		painel.add(comboBoxStatus);
 
 		painel.add(btnSalvar);
 		painel.add(btnSair);
+		
+		
+		
+		DocumentListener listener = new DocumentListener() {//Calculo de previsão de entrega
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+						
+			}			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				atualizarDataPrevista();				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				atualizarDataPrevista();		
+			}
+			
+			private void atualizarDataPrevista() {
+				String dataTxt = txtDataInicio.getText();
+				String prazoTxt = txtPrazo.getText();
+				try {
+					dataTxt = dataTxt.replace('/', '-'); //Tratamento de input, dessa forma posso consultar do arquivo e do input usando o mesmo método
+					LocalDate data = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+					//TODO: esse formato funciona, mas acaba barrando input de "d/M/yyyy" que também deveria funcionar, ajustar depois
+					int prazo = Integer.parseInt(prazoTxt);
+					LocalDate dataPrevista = (LocalDate) data.plusDays(prazo);
+					
+					txtDataPrazo.setText(dataPrevista.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+				} 
+				catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		};
+		
+		txtDataInicio.getDocument().addDocumentListener(listener);
+		txtPrazo.getDocument().addDocumentListener(listener);
 
 		btnSalvar.addActionListener(new ActionListener() {
 			@Override
