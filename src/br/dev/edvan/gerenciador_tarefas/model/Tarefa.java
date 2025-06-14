@@ -76,17 +76,18 @@ public class Tarefa {
 		this.prazo = prazo;
 	}
 
-	public LocalDate getDataPrevistaEntrega() {
-		return dataInicio.plusDays(prazo);
-
+	public LocalDate getDataPrazo() {
+		//TODO: Poderia incluir esse método num util, o formulário de tarefa também faz algo igual 
+		LocalDate dataPrazo = dataInicio.plusDays(prazo);
+		return dataPrazo;
 	}
 
 	public LocalDate getDataEntrega() {
 		return dataEntrega;
 	}
 
-	public void setDataEntrega(LocalDate dataEntrega) {
-		this.dataEntrega = dataEntrega;
+	public void setDataEntrega(String string) {
+//		this.dataEntrega = string; TODO: Método para gravar a data de conclusão, usado no TarefaListaFrame quando marcam o "Concluído"
 	}
 
 	public Status getStatus() {
@@ -96,15 +97,15 @@ public class Tarefa {
 
 
 	private void calcStatus() { 
-		LocalDate dataPrevistaEntrega = getDataPrevistaEntrega();
+		LocalDate dataPrazo = getDataPrazo();
 		LocalDate hoje = LocalDate.now();
 		if (hoje.isBefore(dataInicio)) {
 			setStatus(Status.NAO_INICIADO);
 
 		}
-		if (hoje.isBefore(dataPrevistaEntrega)) {
+		if (hoje.isBefore(dataPrazo)) {
 			setStatus(Status.EM_ANDAMENTO);
-		} else if (hoje.isAfter(dataPrevistaEntrega)) {
+		} else if (hoje.isAfter(dataPrazo)) {
 			setStatus(Status.EM_ATRASO);
 		}
 	}
@@ -123,7 +124,7 @@ public class Tarefa {
 		String matricula = responsavel.getMatricula();
 		String responsavelNome = responsavel.getNome();
 		return 
-				id+","+nome+","+descricao+","+matricula+","+responsavelNome+","+dataInicio+","+getDataPrevistaEntrega()+","+dataEntrega; 
+				id+","+nome+","+descricao+","+matricula+","+responsavelNome+","+dataInicio+","+prazo+","+dataEntrega; 
 	}
 
 }

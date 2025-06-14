@@ -65,5 +65,11 @@ public class FuncionarioDAO {
 		}
 
 	}
+	
+	public Funcionario findFuncionario(String matricula) {
+		Funcionario funcionario;
+		
+		return funcionario;
+	}
 
 }

@@ -21,6 +21,7 @@ import javax.swing.event.DocumentListener;
 import br.dev.edvan.gerenciador_tarefas.dao.FuncionarioDAO;
 import br.dev.edvan.gerenciador_tarefas.dao.TarefaDAO;
 import br.dev.edvan.gerenciador_tarefas.model.Funcionario;
+import br.dev.edvan.gerenciador_tarefas.model.Status;
 import br.dev.edvan.gerenciador_tarefas.model.Tarefa;
 import br.dev.edvan.gerenciador_tarefas.utils.Utils;
 
@@ -41,7 +42,7 @@ public class TarefaFrame {
 	private JTextField txtDataInicio;
 	private JTextField txtPrazo;
 	private JTextField txtDataPrazo;
-//	private JComboBox<E> comboStatus;
+	private JComboBox<Status> comboStatus;
 
 	private JButton btnSalvar;
 	private JButton btnSair;
@@ -84,7 +85,6 @@ public class TarefaFrame {
 		labelResponsavel.setBounds(10, 175, 150, 30);
 		comboBoxResponsavel = new JComboBox<>(getFuncionariosNomes());
 		comboBoxResponsavel.setBounds(10, 200, 200, 30);
-		// TODO: Funcionalidade de ComboBox
 
 		labelDataInicio = new JLabel("Data de início:");
 		labelDataInicio.setBounds(10, 230, 100, 30);
@@ -104,9 +104,9 @@ public class TarefaFrame {
 		// TODO: Calculo de data com a data de início e o prazo
 
 		labelStatus = new JLabel("Status");
-		labelStatus.setBounds(310, 230, 100, 30);
-//		comboStatus = new JComboBox<E>();
-//		comboStatus.setBound(310, 255, 100, 30);
+		labelStatus.setBounds(260, 230, 120, 30);
+		comboStatus = new JComboBox<>(Status.values());
+		comboStatus.setBounds(260, 255, 100, 30);
 
 		btnSair = new JButton("Sair");
 		btnSair.setBounds(10, 410, 120, 40);
@@ -131,7 +131,7 @@ public class TarefaFrame {
 		painel.add(labelDataPrazo);
 		painel.add(txtDataPrazo);
 		painel.add(labelStatus);
-//		painel.add(comboBoxStatus);
+		painel.add(comboStatus);
 
 		painel.add(btnSalvar);
 		painel.add(btnSair);
@@ -190,7 +190,7 @@ public class TarefaFrame {
 				tarefa.setDescricao(txtDescricao.getText());
 				tarefa.setDataInicio(txtDataInicio.getText());
 				tarefa.setPrazo(Integer.parseInt(txtPrazo.getText()));
-//				tarefa.setDataEntrega(txtDataEntrega.getText()); //TODO: Calculo de data de entrega
+				tarefa.setDataEntrega(txtDataPrazo.getText());
 				tarefa.getStatus();	
 				//TODO: Status vai se atualizar com a data de início e o prazo, não vai ter input de fato
 				//Ou... Vamos poder abrir uma tarefa pela ListaTarefas para marcar ela como concluida?
