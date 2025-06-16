@@ -182,8 +182,7 @@ public class TarefaFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//TODO: Reorganizar isso aqui
-				int responsavelIndex = comboBoxResponsavel.getSelectedIndex();
-				
+				int responsavelIndex = comboBoxResponsavel.getSelectedIndex();				
 				String funcionarioMatricula = daoFuncionario.findMatricula(responsavelIndex);
 				Funcionario funcionario = daoFuncionario.getFuncionario(funcionarioMatricula);
 	
@@ -195,20 +194,28 @@ public class TarefaFrame {
 				tarefa.setDataInicio(txtDataInicio.getText());
 				tarefa.setPrazo(Integer.parseInt(txtPrazo.getText()));
 //				tarefa.setStatus(comboStatus.getSelectedItem().toString());
+				
+				if (hasComma()){
+					JOptionPane.showMessageDialog(telaTarefa, "Não inserir vírgulas");
+				}
+				else {
+					// Salvando nossa tarefa
+					TarefaDAO daoTarefa = new TarefaDAO(tarefa);
+					boolean success = daoTarefa.gravar();
 
-				// Salvando nossa tarefa
-				TarefaDAO daoTarefa = new TarefaDAO(tarefa);
-				boolean success = daoTarefa.gravar();
-
-				// Feedback para o usario
-				if (success) {
-					JOptionPane.showMessageDialog(telaTarefa, "Tarefa atribuída com sucesso!");
-					limparFormulario();
-				} else {
-					JOptionPane.showMessageDialog(telaTarefa,
-							"Ocorreu um erro na gravação\nTente novamente.\nSe o problema persistir, entre em contato com o suporte.");
+					// Feedback para o usario
+					if (success) {
+						JOptionPane.showMessageDialog(telaTarefa, "Tarefa atribuída com sucesso!");
+						limparFormulario();
+					} else {
+						JOptionPane.showMessageDialog(telaTarefa,
+								"Ocorreu um erro na gravação\nTente novamente.\nSe o problema persistir, entre em contato com o suporte.");
+					}
+					
 				}
 			}
+
+			
 		});
 
 		// confirmacao e funcionalidade do botão sair
@@ -236,6 +243,15 @@ public class TarefaFrame {
 		txtDataInicio.setText(null);
 		txtPrazo.setText(null);
 		txtNomeTarefa.requestFocus();
+	}
+	
+	private boolean hasComma() {
+		boolean commaNome = txtId.getText().contains(",");
+		boolean commaDescricao = txtDescricao.getText().contains(",");
+		boolean commaPrazo = txtPrazo.getText().contains(",");
+		boolean commaDataInicio = txtDataInicio.getText().contains(",");
+		
+		return (commaNome || commaDescricao || commaPrazo || commaDataInicio);
 	}
 
 
