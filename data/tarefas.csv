@@ -3,3 +3,6 @@
 fc73b227,Olá,Legal que tem alguém lendo isso,bd4a86e5,Edvan Alves,01/01/0001,739415,CONCLUIDO,null
 908a21b0,Passear,Teste de tarefa para outro responsável,bd2e5da2,Meluncia,14/06/2025,6,EM_ANDAMENTO,null
 c7f8a0f4,Corrida,Competição quinta feira,e313c043,Juninho,26/06/2025,1,EM_ANDAMENTO,null
+11a866c1,Teste de erro,prazo 0,bd4a86e5,Edvan Alves,16/06/2025,0,null,null
+c84ca8c4,teste de erro,testando prazo negativo,bd4a86e5,Edvan Alves,16/06/2025,-1,null,null
+56616cca,Teste de erro,teste de prazo com letras,bd4a86e5,Edvan Alves,16/05/2025,0,null,null

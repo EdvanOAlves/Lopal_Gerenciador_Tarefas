@@ -109,7 +109,7 @@ public class TarefaFrame {
 //		labelStatus.setBounds(260, 230, 120, 30);
 //		comboStatus = new JComboBox<>(Status.values());
 //		comboStatus.setBounds(260, 255, 100, 30);
-		// TODO: Comentado tudo que envolvia status porque no formulário ele não faz nada (além de crashar o
+		// TODO: Comentado tudo que envolvia o comboBox de status porque no formulário, ele não faz nada (além de crashar o
 		// programa caso você atribua uma tarefa com status de Concluída) 
 
 		btnSair = new JButton("Sair");
@@ -169,8 +169,7 @@ public class TarefaFrame {
 					
 					txtDataPrazo.setText(dataPrevista.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 				} 
-				catch (Exception e) {
-					// TODO: handle exception
+				catch (Exception DateTimeParseException) {
 				}
 			}
 		};
@@ -185,15 +184,20 @@ public class TarefaFrame {
 				int responsavelIndex = comboBoxResponsavel.getSelectedIndex();				
 				String funcionarioMatricula = daoFuncionario.findMatricula(responsavelIndex);
 				Funcionario funcionario = daoFuncionario.getFuncionario(funcionarioMatricula);
-	
+
 				// Montando a tarefa
 				Tarefa tarefa = new Tarefa(funcionario);
-				tarefa.setId(txtId.getText());
-				tarefa.setNome(txtNomeTarefa.getText());
-				tarefa.setDescricao(txtDescricao.getText());
-				tarefa.setDataInicio(txtDataInicio.getText());
-				tarefa.setPrazo(Integer.parseInt(txtPrazo.getText()));
-//				tarefa.setStatus(comboStatus.getSelectedItem().toString());
+	
+				try {					
+					tarefa.setId(txtId.getText());
+					tarefa.setNome(txtNomeTarefa.getText());
+					tarefa.setDescricao(txtDescricao.getText());
+					tarefa.setDataInicio(txtDataInicio.getText());
+					tarefa.setPrazo(Integer.parseInt(txtPrazo.getText()));
+//					tarefa.setStatus(comboStatus.getSelectedItem().toString()); 
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
 				
 				if (hasComma()){
 					JOptionPane.showMessageDialog(telaTarefa, "Não inserir vírgulas");
