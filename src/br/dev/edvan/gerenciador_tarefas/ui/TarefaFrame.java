@@ -3,6 +3,7 @@ package br.dev.edvan.gerenciador_tarefas.ui;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,12 +12,14 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.NumberFormatter;
 
 import br.dev.edvan.gerenciador_tarefas.dao.FuncionarioDAO;
 import br.dev.edvan.gerenciador_tarefas.dao.TarefaDAO;
@@ -42,7 +45,7 @@ public class TarefaFrame {
 	private JTextField txtDescricao;
 	private JComboBox<String> comboBoxResponsavel;
 	private JTextField txtDataInicio;
-	private JTextField txtPrazo;
+	private JFormattedTextField txtPrazo;
 	private JTextField txtDataPrazo;
 //	private JComboBox<Status> comboStatus;
 
@@ -94,9 +97,19 @@ public class TarefaFrame {
 		txtDataInicio.setBounds(10, 255, 100, 30);
 		//TODO: Seria interessante ele por padrão já vir com a data de hoje, ia ser bem conveniente
 
+		
+		//Previnindo input de letras no prazo
+		NumberFormat prazoFormat = NumberFormat.getIntegerInstance();
+		prazoFormat.setGroupingUsed(false);
+		NumberFormatter prazoFormatter = new NumberFormatter(prazoFormat);
+		prazoFormatter.setValueClass(Integer.class);
+		prazoFormatter.setAllowsInvalid(false);
+		prazoFormatter.setMinimum(0);
+		
+		
 		labelPrazo = new JLabel("Prazo(dias):");
 		labelPrazo.setBounds(10, 285, 100, 30);
-		txtPrazo = new JTextField();
+		txtPrazo = new JFormattedTextField(prazoFormatter);
 		txtPrazo.setBounds(10, 310, 100, 30);
 
 		labelDataPrazo = new JLabel("Data de entrega:");

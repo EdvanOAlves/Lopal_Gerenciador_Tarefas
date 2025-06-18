@@ -109,11 +109,11 @@ public class Tarefa {
 		LocalDate hoje = LocalDate.now();
 		if (hoje.isBefore(dataInicio)) {
 			setStatus(Status.NAO_INICIADO);
-
-		}
-		if (hoje.isBefore(dataPrazo)) {
+		} 
+		else if (hoje.isBefore(dataPrazo) || hoje.isEqual(dataPrazo)) {
 			setStatus(Status.EM_ANDAMENTO);
-		} else if (hoje.isAfter(dataPrazo)) {
+		}
+		else if (hoje.isAfter(dataPrazo)) {
 			setStatus(Status.EM_ATRASO);
 		}
 	}

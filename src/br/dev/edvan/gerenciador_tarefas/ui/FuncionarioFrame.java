@@ -112,17 +112,22 @@ public class FuncionarioFrame {
 				double salario = Double.parseDouble(txtSalario.getText());
 				f.setSalario(salario);
 				
-				//Fazendo Funcionario salvar
-				FuncionarioDAO dao = new FuncionarioDAO(f);
-				boolean success = dao.gravar();
+				if (hasComma()){
+					JOptionPane.showMessageDialog(telaFuncionario, "Não inserir vírgulas");
+				}
 				
-				
-				//Feedback para o usario
-				if (success) {
-					JOptionPane.showMessageDialog(telaFuncionario, "Funcionário cadastrado com sucesso!");
-					limparFormulario();
-				}else {
-					JOptionPane.showMessageDialog(telaFuncionario, "Ocorreu um erro na gravação\nTente novamente.\nSe o problema persistir, entre em contato com o suporte.");
+				else {
+					//Fazendo Funcionario salvar
+					FuncionarioDAO dao = new FuncionarioDAO(f);
+					boolean success = dao.gravar();
+					//Feedback para o usario
+					if (success) {
+						JOptionPane.showMessageDialog(telaFuncionario, "Funcionário cadastrado com sucesso!");
+						limparFormulario();
+					}else {
+						JOptionPane.showMessageDialog(telaFuncionario, "Ocorreu um erro na gravação\nTente novamente.\nSe o problema persistir, entre em contato com o suporte.");
+						
+					}
 					
 				}
 			}
@@ -137,7 +142,6 @@ public class FuncionarioFrame {
 				if (resposta == 0) {
 					telaFuncionario.dispose();				
 				}
-				
 			}
 		});
 		
@@ -153,5 +157,14 @@ public class FuncionarioFrame {
 		txtSetor.setText(null);
 		txtSalario.setText(null);
 		txtNome.requestFocus();
+	}
+	
+	private boolean hasComma() {
+		boolean commaMatricula = txtMatricula.getText().contains(",");
+		boolean commaCargo = txtCargo.getText().contains(",");
+		boolean commaSetor = txtSetor.getText().contains(",");
+		boolean commaSalario = txtSalario.getText().contains(",");
+		
+		return (commaMatricula || commaCargo || commaSetor || commaSalario);
 	}
 }
